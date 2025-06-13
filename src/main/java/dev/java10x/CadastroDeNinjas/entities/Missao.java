@@ -16,6 +16,8 @@ public class Missao {
     private String nome;
     private NivelMissao dificuldade;
 
+    // Uma missao pode ter vários ninjas
+    @OneToMany(mappedBy = "missao")
     private List<Ninja> ninjas;
 
     public Missao(){

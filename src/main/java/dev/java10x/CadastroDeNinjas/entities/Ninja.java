@@ -1,11 +1,7 @@
 package dev.java10x.CadastroDeNinjas.entities;
 
 // Jpa = Java Persistence API
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +13,17 @@ public class Ninja {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nome;
+
     private String email;
+
     private int idade;
-    private List<Missao> missoes;
+
+    // Um ninja tem uma unica missao
+    @ManyToOne
+    @JoinColumn(name = "missao_id") // Foreing Key ou chave estrangeira
+    private Missao missao;
 
     public Ninja(){
 
@@ -30,7 +33,13 @@ public class Ninja {
         this.nome = nome;
         this.email = email;
         this.idade = idade;
-        this.missoes = new ArrayList<>();
+    }
+
+    public Ninja(String nome, String email, int idade, Missao missao){
+        this.nome = nome;
+        this.email = email;
+        this.idade = idade;
+        this.missao = missao;
     }
 
     public String getNome() {
@@ -65,15 +74,11 @@ public class Ninja {
         this.id = id;
     }
 
-    public List<Missao> getMissoes() {
-        return missoes;
+    public Missao getMissao() {
+        return missao;
     }
 
-    public void setMissoes(List<Missao> missoes) {
-        this.missoes = missoes;
-    }
-
-    public void addMissao(Missao missao) {
-        this.missoes.add(missao);
+    public void setMissao(Missao missao) {
+        this.missao = missao;
     }
 }
