@@ -7,8 +7,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
-@Table(name = "tb_cadastro")
+@Table(name = "tb_ninjas")
 public class Ninja {
 
     @Id
@@ -17,7 +20,7 @@ public class Ninja {
     private String nome;
     private String email;
     private int idade;
-
+    private List<Missao> missoes;
 
     public Ninja(){
 
@@ -27,6 +30,7 @@ public class Ninja {
         this.nome = nome;
         this.email = email;
         this.idade = idade;
+        this.missoes = new ArrayList<>();
     }
 
     public String getNome() {
@@ -59,5 +63,17 @@ public class Ninja {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<Missao> getMissoes() {
+        return missoes;
+    }
+
+    public void setMissoes(List<Missao> missoes) {
+        this.missoes = missoes;
+    }
+
+    public void addMissao(Missao missao) {
+        this.missoes.add(missao);
     }
 }
