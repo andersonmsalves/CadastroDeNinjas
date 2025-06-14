@@ -1,5 +1,6 @@
 package dev.java10x.CadastroDeNinjas.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.java10x.CadastroDeNinjas.enums.NivelMissao;
 import jakarta.persistence.*;
 
@@ -18,6 +19,7 @@ public class Missao {
 
     // Uma missao pode ter vários ninjas
     @OneToMany(mappedBy = "missao")
+    @JsonIgnore
     private List<Ninja> ninjas;
 
     public Missao(){
