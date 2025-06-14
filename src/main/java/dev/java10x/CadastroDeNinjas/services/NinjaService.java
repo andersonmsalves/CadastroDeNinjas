@@ -22,4 +22,9 @@ public class NinjaService {
     public Ninja findById(Long id){
         return ninjaRepository.findById(id).get();
     }
+
+    // Criar um ninja
+    public Ninja criarNinja(Ninja ninja){
+        return ninjaRepository.save(ninja);
+    }
 }
