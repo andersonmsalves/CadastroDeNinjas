@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class NinjaService {
@@ -19,13 +21,17 @@ public class NinjaService {
     private NinjaMapper ninjaMapper;
 
     // Listar todos os meus ninjas
-    public List<Ninja> findAll() {
-        return ninjaRepository.findAll();
+    public List<NinjaDTO> findAll() {
+        List<Ninja> ninjas = ninjaRepository.findAll();
+        return ninjas.stream()
+                .map(ninjaMapper::map)          // callback do metodo map
+                .collect(Collectors.toList());  // converter para lista
     }
 
     // Buscar ninja por Id.
-    public Ninja findById(Long id){
-        return ninjaRepository.findById(id).get();
+    public NinjaDTO findById(Long id){
+        Optional<Ninja> ninja = ninjaRepository.findById(id);
+        return ninja.map(ninjaMapper::map).orElse(null);
     }
 
     // Criar um ninja
@@ -41,11 +47,14 @@ public class NinjaService {
     }
 
     // Atualizar ninja por Id
-    public Ninja atualizarNinjaPorId(Long id, Ninja ninjaAtualizado) {
+    public NinjaDTO atualizarNinjaPorId(Long id, NinjaDTO ninjaDTO) {
+        Optional<Ninja> ninjaExiste = ninjaRepository.findById(id);
 
-        if( ninjaRepository.existsById(id) ) {
-            ninjaAtualizado.setId(id);
-            return ninjaRepository.save(ninjaAtualizado);
+        if( ninjaExiste.isPresent() ) {
+            ninjaDTO.setId(id);
+            Ninja ninja = ninjaMapper.map(ninjaDTO);
+            ninja = ninjaRepository.save(ninja);
+            return ninjaMapper.map(ninja);
         }
         return null;
     }

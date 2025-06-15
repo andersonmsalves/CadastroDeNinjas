@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MissaoService {
@@ -19,13 +21,17 @@ public class MissaoService {
     private MissaoMapper missaoMapper;
 
     // Buscar todas as missoes
-    public List<Missao> findAll() {
-        return missaoRepository.findAll();
+    public List<MissaoDTO> findAll() {
+        List<Missao> missoes = missaoRepository.findAll();
+        return missoes.stream()
+                .map(missaoMapper::map) // Iterar sobre cada Missao fazendo o mapeamento
+                .collect(Collectors.toList()); // Converter para lista
     }
 
     // Buscar missao por id
-    public Missao findById(Long id) {
-        return missaoRepository.findById(id).get();
+    public MissaoDTO findById(Long id) {
+        Optional<Missao> missao = missaoRepository.findById(id);
+        return missao.map(missaoMapper::map).orElse(null);
     }
 
     // Deletar missao por id
@@ -41,11 +47,15 @@ public class MissaoService {
     }
 
     // Atualizar Missao por is
-    public Missao atualizarMissao(Long id, Missao missao) {
+    public MissaoDTO atualizarMissao(Long id, MissaoDTO missaoDTO) {
 
-        if(missaoRepository.existsById(id)) {
-            missao.setId(id);
-            return missaoRepository.save(missao);
+        Optional<Missao> missaoExistente = missaoRepository.findById(id);
+
+        if( missaoExistente.isPresent() ) {
+            missaoDTO.setId(id);
+            Missao missao = missaoMapper.map(missaoDTO);
+            missao = missaoRepository.save(missao);
+            return missaoMapper.map(missao);
         }
         return null;
     }

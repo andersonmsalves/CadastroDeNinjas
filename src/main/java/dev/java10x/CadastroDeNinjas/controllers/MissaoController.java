@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/missoes")
@@ -22,12 +23,12 @@ public class MissaoController {
     }
 
     @GetMapping()
-    public List<Missao> findAllMissoes(){
+    public List<MissaoDTO> findAllMissoes(){
         return missaoService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Missao findMissaoById(@PathVariable Long id){
+    public MissaoDTO findMissaoById(@PathVariable Long id){
         return missaoService.findById(id);
     }
 
@@ -42,7 +43,7 @@ public class MissaoController {
     }
 
     @PatchMapping("/{id}")
-    public Missao atualizarMissao(@PathVariable Long id, @RequestBody Missao missao) {
-        return missaoService.atualizarMissao(id, missao);
+    public MissaoDTO atualizarMissao(@PathVariable Long id, @RequestBody MissaoDTO missaoDTO) {
+        return missaoService.atualizarMissao(id, missaoDTO);
     }
 }
