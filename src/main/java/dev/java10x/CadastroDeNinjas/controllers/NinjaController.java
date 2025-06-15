@@ -26,7 +26,7 @@ public class NinjaController {
     }
 
     // Procurar Ninja por Id (Read)
-    @GetMapping("/{id}")
+    @GetMapping("/listar/{id}")
     public Ninja mostrarNinjaPorId(@PathVariable  Long id) {
         System.out.println("ID: " + id);
         return ninjaService.findById(id);
