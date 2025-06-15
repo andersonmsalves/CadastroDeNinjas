@@ -1,6 +1,8 @@
 package dev.java10x.CadastroDeNinjas.services;
 
+import dev.java10x.CadastroDeNinjas.dtos.MissaoDTO;
 import dev.java10x.CadastroDeNinjas.entities.Missao;
+import dev.java10x.CadastroDeNinjas.mappers.MissaoMapper;
 import dev.java10x.CadastroDeNinjas.repositories.MissaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,9 @@ public class MissaoService {
 
     @Autowired
     private MissaoRepository missaoRepository;
+
+    @Autowired
+    private MissaoMapper missaoMapper;
 
     // Buscar todas as missoes
     public List<Missao> findAll() {
@@ -29,8 +34,10 @@ public class MissaoService {
     }
 
     // Criar missao
-    public Missao criarMissao(Missao missao){
-        return missaoRepository.save(missao);
+    public MissaoDTO criarMissao(MissaoDTO missaoDTO){
+        Missao missao = missaoMapper.map(missaoDTO);
+        missao = missaoRepository.save(missao);
+        return missaoMapper.map(missao);
     }
 
     // Atualizar Missao por is

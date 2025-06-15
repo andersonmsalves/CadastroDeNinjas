@@ -12,9 +12,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "tb_missoes")
-@NoArgsConstructor
+/*@NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Data*/
 public class Missao {
 
     @Id
@@ -28,14 +28,14 @@ public class Missao {
     @JsonIgnore
     private List<Ninja> ninjas;
 
-    /*public Missao(){
-
+    public Missao() {
     }
 
-    public Missao(String nome, NivelMissao dificuldade){
+    public Missao(Long id, String nome, NivelMissao dificuldade, List<Ninja> ninjas) {
+        this.id = id;
         this.nome = nome;
         this.dificuldade = dificuldade;
-        this.ninjas = new ArrayList<>();
+        this.ninjas = ninjas;
     }
 
     public Long getId() {
@@ -62,19 +62,11 @@ public class Missao {
         this.dificuldade = dificuldade;
     }
 
-    public void adicionarNinja(Ninja ninja) {
-        this.ninjas.add(ninja);
-    }
-
-    public List<Ninja> getNinjas(){
+    public List<Ninja> getNinjas() {
         return ninjas;
-    }*/
-
-    public Long getId() {
-        return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setNinjas(List<Ninja> ninjas) {
+        this.ninjas = ninjas;
     }
 }

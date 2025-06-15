@@ -1,6 +1,8 @@
 package dev.java10x.CadastroDeNinjas.controllers;
 
+import dev.java10x.CadastroDeNinjas.dtos.NinjaDTO;
 import dev.java10x.CadastroDeNinjas.entities.Ninja;
+import dev.java10x.CadastroDeNinjas.mappers.NinjaMapper;
 import dev.java10x.CadastroDeNinjas.services.NinjaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,9 @@ public class NinjaController {
     @Autowired
     private NinjaService ninjaService;
 
+    @Autowired
+    private NinjaMapper ninjaMapper;
+
     @GetMapping("/boasVindas")
     public String boasVindas() {
         return "Essa é minha primeira mensagem nessa rota";
@@ -21,7 +26,7 @@ public class NinjaController {
 
     // Adicionar ninja (Create)
     @PostMapping("/criar")
-    public Ninja criarNinja(@RequestBody Ninja ninja) {
+    public NinjaDTO criarNinja(@RequestBody NinjaDTO ninja) {
         return ninjaService.criarNinja(ninja);
     }
 

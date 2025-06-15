@@ -1,5 +1,6 @@
 package dev.java10x.CadastroDeNinjas.controllers;
 
+import dev.java10x.CadastroDeNinjas.dtos.MissaoDTO;
 import dev.java10x.CadastroDeNinjas.entities.Missao;
 import dev.java10x.CadastroDeNinjas.services.MissaoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,8 @@ public class MissaoController {
     }
 
     @PostMapping
-    public Missao criarMissao(@RequestBody Missao missao) {
-        return missaoService.criarMissao(missao);
+    public MissaoDTO criarMissao(@RequestBody MissaoDTO missaoDTO) {
+        return missaoService.criarMissao(missaoDTO);
     }
 
     @PatchMapping("/{id}")
