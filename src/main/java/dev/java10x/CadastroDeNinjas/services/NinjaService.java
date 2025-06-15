@@ -27,4 +27,9 @@ public class NinjaService {
     public Ninja criarNinja(Ninja ninja){
         return ninjaRepository.save(ninja);
     }
+
+    // Excluir um ninja por Id
+    public void excluirNinja(Long id){
+        ninjaRepository.deleteById(id);
+    }
 }
