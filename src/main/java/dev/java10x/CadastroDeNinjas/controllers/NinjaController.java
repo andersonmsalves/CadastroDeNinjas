@@ -49,4 +49,10 @@ public class NinjaController {
     public void deletarNinjaPorId(@PathVariable Long id) {
         ninjaService.excluirNinja(id);
     }
+
+    // Alterar dados dos ninjas (Update)
+    @PatchMapping("/{id}")
+    public Ninja atualizarNinja(@PathVariable Long id, @RequestBody Ninja ninja){
+        return ninjaService.atualizarNinjaPorId(id, ninja);
+    }
 }

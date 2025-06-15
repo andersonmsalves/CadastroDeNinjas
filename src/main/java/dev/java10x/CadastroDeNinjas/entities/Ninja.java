@@ -39,4 +39,12 @@ public class Ninja {
     @ManyToOne
     @JoinColumn(name = "missao_id") // Foreing Key ou chave estrangeira
     private Missao missao;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

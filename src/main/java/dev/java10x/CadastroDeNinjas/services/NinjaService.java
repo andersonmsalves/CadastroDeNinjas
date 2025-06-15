@@ -32,4 +32,14 @@ public class NinjaService {
     public void excluirNinja(Long id){
         ninjaRepository.deleteById(id);
     }
+
+    // Atualizar ninja por Id
+    public Ninja atualizarNinjaPorId(Long id, Ninja ninjaAtualizado) {
+
+        if( ninjaRepository.existsById(id) ) {
+            ninjaAtualizado.setId(id);
+            return ninjaRepository.save(ninjaAtualizado);
+        }
+        return null;
+    }
 }
