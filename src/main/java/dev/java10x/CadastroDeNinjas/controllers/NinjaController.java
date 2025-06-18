@@ -4,6 +4,9 @@ import dev.java10x.CadastroDeNinjas.dtos.NinjaDTO;
 import dev.java10x.CadastroDeNinjas.entities.Ninja;
 import dev.java10x.CadastroDeNinjas.mappers.NinjaMapper;
 import dev.java10x.CadastroDeNinjas.services.NinjaService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
 import org.springframework.http.HttpStatus;
@@ -26,6 +29,11 @@ public class NinjaController {
 
     // Adicionar ninja (Create)
     @PostMapping("/criar")
+    @Operation(summary = "Cria um novo ninja", description = "Rota cria um novo ninja e insere no banco de dados")
+    @ApiResponses(value ={
+            @ApiResponse(responseCode = "201", description = "Ninja criado com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Erro na criação do ninja")
+    })
     public ResponseEntity<String> criarNinja(@RequestBody NinjaDTO ninja) {
         NinjaDTO ninjaDTO = ninjaService.criarNinja(ninja);
         return ResponseEntity.status(HttpStatus.CREATED)
